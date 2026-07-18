@@ -1,0 +1,3 @@
+import { createContext, useContext, useState } from 'react'; import client from '../api/client';
+const AuthContext = createContext(); export const useAuth = () => useContext(AuthContext);
+export function AuthProvider({ children }) { const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('mergespace_user') || 'null')); const login = data => { localStorage.setItem('mergespace_token', data.token); localStorage.setItem('mergespace_user', JSON.stringify(data.user)); setUser(data.user); }; const logout = () => { localStorage.clear(); setUser(null); }; return <AuthContext.Provider value={{ user, login, logout, client }}>{children}</AuthContext.Provider>; }

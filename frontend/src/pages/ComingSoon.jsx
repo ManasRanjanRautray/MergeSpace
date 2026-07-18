@@ -1,0 +1,1 @@
+export default function ComingSoon({ title }) { return <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center dark:bg-slate-900"><h1 className="text-2xl font-bold">{title}</h1><p className="mt-2 text-slate-500">This part of MergeSpace is ready for its next build phase.</p></div> }

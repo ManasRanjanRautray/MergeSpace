@@ -1,0 +1,2 @@
+import mongoose from 'mongoose';
+export default mongoose.model('Notification', new mongoose.Schema({ recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, actor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, type: { type: String, enum: ['like', 'comment', 'follow', 'event'], required: true }, message: String, read: { type: Boolean, default: false }, entityId: mongoose.Schema.Types.ObjectId }, { timestamps: true }));

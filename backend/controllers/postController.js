@@ -1,0 +1,4 @@
+import Post from '../models/Post.js';
+export async function getPosts(req, res) { const posts = await Post.find().populate('author', 'name avatar branch year').populate('comments.author', 'name avatar').sort('-createdAt').limit(50); res.json(posts); }
+export async function createPost(req, res) { const post = await Post.create({ author: req.user._id, content: req.body.content, image: req.body.image }); res.status(201).json(await post.populate('author', 'name avatar branch year')); }
+export async function toggleLike(req, res) { const post = await Post.findById(req.params.id); if (!post) return res.status(404).json({ message: 'Post not found' }); const i = post.likes.findIndex(id => id.equals(req.user._id)); i === -1 ? post.likes.push(req.user._id) : post.likes.splice(i, 1); await post.save(); res.json({ likes: post.likes, liked: i === -1 }); }
